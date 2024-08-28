@@ -1,12 +1,14 @@
 use pyo3::prelude::*;
 use pyo3::types::PyTuple;
+use steel::steel_vm::engine::Engine;
+use steel::SteelVal;
 
-fn main() -> PyResult<()> {
+fn main() {
     let arg1 = "arg1";
     let arg2 = "arg2";
     let arg3 = "arg3";
 
-    Python::with_gil(|py| {
+    let x: PyResult<_> = Python::with_gil(|py| {
         let fun: Py<PyAny> = PyModule::from_code_bound(
             py,
             "def example(*args, **kwargs):
@@ -33,5 +35,8 @@ fn main() -> PyResult<()> {
         let args = PyTuple::new_bound(py, &[arg1, arg2, arg3]);
         fun.call1(py, args)?;
         Ok(())
-    })
+    });
+
+    let steel_engine = Engine::new();
+    steel_repl::run_repl(steel_engine).unwrap();
 }

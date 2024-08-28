@@ -8,3 +8,5 @@ version = "0.22.2"
 features = ["auto-initialize"]
 
 [dependencies]
+steel-core = { git="https://github.com/mattwparas/steel.git", branch = "master" }
+steel-repl = { git="https://github.com/mattwparas/steel.git", branch = "master" }
